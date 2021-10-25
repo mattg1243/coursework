@@ -1,0 +1,1 @@
+scratch.o: ../scratch.cpp

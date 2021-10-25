@@ -1,0 +1,10 @@
+Initial Cost : $ 14366.00
+Tax Credit : 0.21
+Annual Energy Bill : $ 789.00
+Payback Period : 14.38 years
+----------------------------
+Initial Cost : $ 16789.00
+Tax Credit : 0.76
+Annual Energy Bill : $ 478.00
+Payback Period : 8.43 years
+----------------------------

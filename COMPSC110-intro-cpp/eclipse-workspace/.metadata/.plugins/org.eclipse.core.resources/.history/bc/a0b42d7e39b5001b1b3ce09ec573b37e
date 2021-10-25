@@ -1,0 +1,219 @@
+//============================================================================
+// Name        : gallucciA10.cpp
+// Author      : Matt Gallucci
+// Version     :
+// Copyright   : DontStealMyCode®
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iomanip>
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <ctime>
+#include <vector>
+
+using namespace std;
+
+int letterToPoints(string);
+float calcGPA(int, int);
+
+float calcRegPay(float hours, float rate);
+float calcOvPay (float hours, float rate);
+float calcTax(float pay, float taxRate);
+
+const float BASE_TAX_RATE = .04;
+
+struct employee
+{
+    string name;
+    float payRate;
+    float hoursWorked;
+};
+
+int main() {
+
+	cout << "\n-----------------------------------------------------------------Part 1--------------------------------------------------------------------\n\n";
+
+    vector <int> creditHours, gradePoints;
+    vector <string> grade;
+    string inputStr, gradeInput;
+    int creditInput, creditSum = 0, gradeSum = 0;
+
+    cout << "Pleae enter your grade and credit hours for the class you would like to add, seperated by a space, or x to compute the total GPA: ";
+    getline(cin, inputStr);
+
+    while (inputStr != "x" and inputStr != "X")
+    {
+        gradeInput = inputStr.substr(0,1);
+        creditInput = stoi(inputStr.substr(2,1));
+
+        grade.push_back(gradeInput);
+        creditHours.push_back(creditInput);
+
+        cout << "Please enter your grade and credit hours for the class you would like to add, seperated by a space, or x to compute the total GPA: ";
+        getline(cin, inputStr);
+    }
+
+    for (int i = 0; i < creditHours.size(); i++)
+    {
+        creditSum += creditHours[i];
+        gradeSum += letterToPoints(grade[i]) * creditHours[i];
+    }
+
+    cout << "The grades you entered were:\n";
+    for (int j=0; j < creditHours.size(); j++)
+    {
+        cout << grade[j] << " " << creditHours[j] << endl;
+    }
+
+    cout << "The total GPA based on this input is " << setprecision(2) << fixed << calcGPA(creditSum, gradeSum) << endl;
+
+
+    cout << "\n-----------------------------------------------------------------Part 2--------------------------------------------------------------------\n";
+
+    ifstream inputFile;
+    inputFile.open("/Users/macadmin/Desktop/SS21/COMSC110/Coding Assignments/A7/a7data.txt", ios::in);
+    string inputStr2;
+    int empCount = 0;
+    float regPayTotal = 0, ovPayTotal = 0, grossPayTotal = 0;
+
+    employee empArr[100];
+    vector<employee> empVec;
+
+    if(! inputFile.is_open())
+    {
+    	cout << "Error opening file" << endl;
+    	return 4;
+    }
+
+    getline(inputFile, inputStr2);
+
+    for (int i=0;i<100;i++)
+    {
+    	if (inputFile.eof())
+    	{
+    		break;
+    	}
+
+    	empCount++;
+    	employee Worker;
+    	Worker.name = inputStr2.substr(0, 20);
+    	Worker.payRate = stof(inputStr2.substr(20, 5));
+    	Worker.hoursWorked = stof(inputStr2.substr(25, 5));
+
+    	regPayTotal += calcRegPay(Worker.hoursWorked, Worker.payRate);
+    	ovPayTotal += calcOvPay(Worker.hoursWorked, Worker.payRate);
+    	grossPayTotal += calcRegPay(Worker.hoursWorked, Worker.payRate) + calcOvPay(Worker.hoursWorked, Worker.payRate);
+
+    	empVec.push_back(Worker);
+
+    	getline(inputFile, inputStr2);
+    }
+
+    cout << "\n-------------------------------------------------------------------------------------------------------------------------------------------\n";
+
+    for (int j = 0; j < empCount; j++)
+    {
+    	cout << "Name : " << empVec[j].name << setw(10);
+    	cout << "Pay Rate : $ " << setw(6) << right << setprecision(2) << fixed << empVec[j].payRate << "    ";
+    	cout << "Hours Worked : " << setw(4) << right << empVec[j].hoursWorked << "    ";
+    	cout << "Reg pay : $ " << setw(7) << calcRegPay(empVec[j].hoursWorked, empVec[j].payRate) << "    ";
+    	cout << "OV Pay : $ " << setw(6) << calcOvPay(empVec[j].hoursWorked, empVec[j].payRate) << "    ";
+    	cout << "Gross pay : $" << setw(8) << calcRegPay(empVec[j].hoursWorked, empVec[j].payRate) + calcOvPay(empVec[j].hoursWorked, empVec[j].payRate) << endl;
+    }
+
+    cout << "-------------------------------------------------------------------------------------------------------------------------------------------";
+    cout << "\nEmployees : " << setw(64) << left << empCount;
+    cout << "Total : $ " << setw(7) << right << regPayTotal << setw(15);
+    cout << "Total : $ " << setw(6) << ovPayTotal << setw(18);
+    cout << "Total : $ " << grossPayTotal << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------------------------------------\n";
+
+
+    return 0;
+}
+
+int letterToPoints(string grade){
+
+    char gradeChar = grade[0];
+    int gradePoint;
+
+    if (toupper(gradeChar) == 'A')
+    {
+        gradePoint = 4;
+    }
+    else if (toupper(gradeChar) == 'B')
+    {
+        gradePoint = 3;
+    }
+    else if (toupper(gradeChar) == 'C')
+    {
+        gradePoint = 2;
+    }
+    else if (toupper(gradeChar) == 'D')
+    {
+        gradePoint = 1;
+    }
+    else if (toupper(gradeChar) == 'F')
+    {
+        gradePoint = 0;
+    }
+
+    return gradePoint;
+
+}
+
+float calcGPA(int credits, int gradePoints){
+
+    return static_cast<float>(gradePoints) / credits;
+
+}
+
+float calcRegPay(float hours, float rate)
+{
+	if (hours > 40)
+	{
+		hours = hours - (hours - 40);
+	}
+
+
+	float regPay = hours * rate;
+	return regPay;
+}
+
+float calcOvPay (float hours, float rate)
+{
+
+	if (hours > 40)
+	{
+		hours = hours - 40;
+		return hours * (rate * 1.5);
+	}
+	else
+	{
+		return 0;
+	}
+
+}
+
+float calcTax (float pay, float taxRate)
+{
+
+	if (pay < 100.0)
+	{
+		taxRate = BASE_TAX_RATE - .02;
+	}
+	else if (pay >= 100.0 and pay <= 600.0)
+	{
+		taxRate = BASE_TAX_RATE;
+	}
+	else
+	{
+		taxRate = BASE_TAX_RATE + .04;
+	}
+
+
+	return pay * taxRate;
+
+}

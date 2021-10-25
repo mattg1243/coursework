@@ -1,0 +1,97 @@
+//============================================================================
+// Name        : gallucciA10.cpp
+// Author      : Matt Gallucci
+// Version     :
+// Copyright   : DontStealMyCode®
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iomanip>
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <ctime>
+#include <vector>
+
+using namespace std;
+
+int letterToPoints(string);
+float calcGPA(int, int);
+
+int main() {
+
+    cout << "------------------------------Part 1-----------------------------\n\n";
+
+    vector <int> creditHours, gradePoints;
+    vector <string> grade;
+    string inputStr, gradeInput;
+    int creditInput, creditSum = 0, gradeSum = 0;
+    float GPA;
+
+    cout << "Pleae enter your grade and credit hours for the class you would like to add, seperated by a space, or x to compute the total GPA: ";
+    getline(cin, inputStr);
+
+    while (inputStr != "x" and inputStr != "X")
+    {
+        gradeInput = inputStr.substr(0,1);
+        creditInput = stoi(inputStr.substr(2,1));
+
+        grade.push_back(gradeInput);
+        creditHours.push_back(creditInput);
+
+        cout << "Please enter your grade and credit hours for the class you would like to add, seperated by a space, or x to compute the total GPA: ";
+        getline(cin, inputStr);
+    }
+
+    for (int i = 0; i < creditHours.size(); i++)
+    {
+        creditSum += creditHours[i];
+        gradeSum += letterToPoints(grade[i]) * creditHours[i];
+    }
+
+    cout << "The grades you entered were:\n";
+    for (int j=0; j < creditHours.size(); j++)
+    {
+        cout << grade[j] << " " << creditHours[j] << endl;
+    }
+
+    cout << "The total GPA based on this input is " << setprecision(2) << fixed << calcGPA(creditSum, gradeSum) << endl;
+
+    return 0;
+}
+
+int letterToPoints(string grade){
+
+    char gradeChar = grade[0];
+    int gradePoint;
+
+    if (toupper(gradeChar) == 'A')
+    {
+        gradePoint = 4;
+    }
+    else if (toupper(gradeChar) == 'B')
+    {
+        gradePoint = 3;
+    }
+    else if (toupper(gradeChar) == 'C')
+    {
+        gradePoint = 2;
+    }
+    else if (toupper(gradeChar) == 'D')
+    {
+        gradePoint = 1;
+    }
+    else if (toupper(gradeChar) == 'F')
+    {
+        gradePoint = 0;
+    }
+
+    return gradePoint;
+
+}
+
+float calcGPA(int credits, int gradePoints){
+
+    return static_cast<float>(gradePoints) / credits;
+
+}

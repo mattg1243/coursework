@@ -1,0 +1,51 @@
+pleasant Hill  ca94553
+concord        ca94565
+dublin         ca94581
+pleasanton     ca94572
+san Francisco  ca94502
+los Angeles    ca93589
+new York       ny00124
+miami          fl45612
+vegas          nv45891
+----------------------
+pleasant Hill  ca94553
+concord        ca94565
+dublin         ca94581
+pleasanton     ca94572
+san Francisco  ca94502
+los Angeles    ca93589
+new York       ny00124
+miami          fl45612
+vegas          nv45891
+----------------------
+pleasant Hill  ca94553
+concord        ca94565
+dublin         ca94581
+pleasanton     ca94572
+san Francisco  ca94502
+los Angeles    ca93589
+new York       ny00124
+miami          fl45612
+vegas          nv45891
+----------------------
+pleasant Hill  ca94553
+concord        ca94565
+dublin         ca94581
+pleasanton     ca94572
+san Francisco  ca94502
+los Angeles    ca93589
+new York       ny00124
+miami          fl45612
+vegas          nv45891
+vegas          nv45891
+----------------------
+pleasant Hill  ca94553
+concord        ca94565
+dublin         ca94581
+pleasanton     ca94572
+san Francisco  ca94502
+los Angeles    ca93589
+new York       ny00124
+miami          fl45612
+vegas          nv45891
+----------------------

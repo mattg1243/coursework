@@ -1,0 +1,133 @@
+//============================================================================
+// Name        : gallucciA8.cpp
+// Author      : Matt Gallucci
+// Version     :
+// Copyright   : DontStealMyCode®
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string>
+#include <ctime>
+#include <numeric>
+
+using namespace std;
+
+int rollem();
+
+int main() {
+/*
+// Part 1:
+
+	int temp[8];
+	int i, sum = 0, userInputInt;
+	string userInputStr;
+
+	cout << "\n+++++++++++++++++ Part 1 ++++++++++++++++++\n\n";
+
+	for (i=0;i<8;i++)
+	{
+		cout << "Enter a temperature to add it to the array: " << endl;
+		getline(cin, userInputStr);
+		userInputInt = stoi(userInputStr);
+		sum += userInputInt;
+		temp[i] = userInputInt;
+	}
+	for (i=0;i<8;i++)
+	{
+		cout << "You entered " << temp[i] << " for temperature " << i + 1 << endl;
+	}
+
+	cout << "The average temperature is " << setprecision(2) << fixed << sum / 8.0 << endl;
+	cout << "\n++++++++++++++ Part 2 ++++++++++++++\n\n";
+
+
+// Part 2:
+
+	string userInputStr2;
+	int userInputInt2, counter = 0;
+	int temp2[100];
+	float tempSum2 = 0;
+
+
+	for (int j = 0; j <= 100; j++)
+	{
+		cout << "Please enter a temperature, or stop: " << endl;
+		getline(cin, userInputStr2);
+
+		if (userInputStr2 == "stop")
+		{
+			break;
+		}
+		else
+		{
+			userInputInt2 = stoi(userInputStr2);
+			temp2[j] = userInputInt2;
+		}
+		counter++;
+	}
+
+	for (int j = 0;j < counter;j++)
+	{
+		cout << "You entered " << temp2[j] << endl;
+		tempSum2 += temp2[j];
+	}
+
+	cout << "\nThe average temperature is " << tempSum2 / counter << endl;
+*/
+// Part 3:
+
+	cout << "\n++++++++++++++++++++++ Part 3 +++++++++++++++++++++++\n\n";
+
+	rollem();
+
+	return 0;
+}
+
+
+int rollem()
+{
+	int totalSum = 0, rollCount, rollNum = 0, seed1, seed2, dice1, dice2, rollSum;
+	int rollVals[11] = {0};
+	string rollCountStr;
+	srand(time(0));
+
+	cout << "Enter how many times you would like to roll the dice: ";
+	getline(cin, rollCountStr);
+	rollCount = stoi(rollCountStr);
+
+	cout << "\n*-------------------------------------------------*\n";
+
+
+	for(int i = 0; i <= rollCount; i++)
+	{
+		seed1 = rand();
+		seed2 = rand();
+		dice1 = (seed1 % 6) + 1;
+		dice2 = (seed2 % 6) + 1;
+		rollSum = dice1 + dice2;
+		totalSum += rollSum;
+		rollVals[rollSum - 2]++;
+	}
+
+	for(int i = 0; i < 11; i++)
+	{
+		cout << "| " << "roll" << setw(5) << right << i + 2 << "  |  " << "occurrences" << setw(7) << right << rollVals[i] << "  |  " <<
+				setw(3) << right << "%" << setw(7) << right << setprecision(2) << fixed << static_cast<float> (rollVals[i]) / rollCount * 100 <<  " |" << endl;
+
+		if (i !=10)
+		{
+		cout << "|-------------------------------------------------|" << endl;
+		}
+	}
+
+	cout << "*-------------------------------------------------*\n\n";
+
+	cout << "Return Value (sum of rolls):  " << totalSum << endl;
+
+	return totalSum;		//assignment wasn't very clear about what exactly to return; need clarification
+
+}
+
