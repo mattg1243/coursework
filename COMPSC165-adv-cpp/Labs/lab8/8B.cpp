@@ -28,7 +28,7 @@ class Integer {
             *p = n;
         }
         //accessors
-        int getNum() {
+        int getNum() const {
             return *p;
         }
 
