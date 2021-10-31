@@ -16,13 +16,12 @@ class intVector {
         length = 0;
     }
 
-    intVector(int i, int j) {
-        length = 2;
-        int arr[2] = { i, j };
-        numbers = new int[2];
+    intVector(int val, int n) {
+        length = n;
+        numbers = new int[n];
         
-        for (int i = 0; i < length; i++) {
-                *( numbers + i ) = arr[i];
+        for (int i = 0; i < n; i++) {
+                *( numbers + i ) = val;
         }
     }
     // destructor
@@ -30,14 +29,15 @@ class intVector {
         delete [] numbers;
     }
     // accessors
-    int at(int pos) {
+    int& at(int pos) const {
         return numbers[pos];
     }
-    int size() {
+    int size() const {
         return length;
     }
     //mutators
     void push_back(int val) {
+        
         if (length > 0) {
             int newarr[length + 1];
             
@@ -52,10 +52,13 @@ class intVector {
             for (int i = 0; i <= length; i++) {
                 *( numbers + i ) = newarr[i];
             }
-            
-            length++;
 
+        } else {
+            numbers = new int[1];
+            numbers[0] = val;
         }
+        
+        length++;
     }
 
 
@@ -63,18 +66,27 @@ class intVector {
 
 int main() {
 
-    intVector test(1, 2);
+    intVector defConst;
+    defConst.push_back(8);
+    defConst.push_back(6);
+    defConst.push_back(7);
 
+    for (int i = 0; i < defConst.size(); i++) {
+        cout << defConst.at(i) << " ";
+    }
+    cout << "\n";
 
+    defConst.at(1) = 0;
 
-    cout << test.at(0) << endl;
-    cout << "size test : " << test.size() << endl;
-    test.push_back(3);
-    test.push_back(4);
-    cout << "size test : " << test.size() << endl;
-    cout << "pushback test : " << endl;
-    for (int i = 0; i<test.size(); i++) {
-        cout << test.at(i) << endl;
+    for (int i = 0; i < defConst.size(); i++) {
+        cout << defConst.at(i) << " ";
+    }
+    cout << "\n";
+
+    intVector ovConst(9, 5);
+
+    for (int i = 0; i < ovConst.size(); i++) {
+        cout << ovConst.at(i) << " ";
     }
 
     return 0;
