@@ -16,7 +16,7 @@ class intVector {
         length = 0;
     }
 
-    intVector(int val, int n) {
+    intVector(int n, int val) {
         length = n;
         numbers = new int[n];
         
@@ -83,11 +83,12 @@ int main() {
     }
     cout << "\n";
 
-    intVector ovConst(9, 5);
+    intVector ovConst(5, 9);
 
     for (int i = 0; i < ovConst.size(); i++) {
         cout << ovConst.at(i) << " ";
     }
+    cout << "\n";
 
     return 0;
 }
