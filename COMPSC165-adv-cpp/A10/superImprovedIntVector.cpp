@@ -52,8 +52,8 @@ class EnhancedIntVector : public IntVector {
     double getAverage() const;
     int getHighest() const;
     int getLowest() const;
-    int first() const { return numbers[0]; }
-    int last() const { return numbers[length - 1]; }
+    int first() const { if (length == 0) return -1; return numbers[0]; }
+    int last() const { if (length == 0) return -1; return numbers[length - 1]; }
     bool find(int val) const;
 
 };
@@ -62,6 +62,7 @@ class EnhancedIntVector : public IntVector {
 int main() {
 
     EnhancedIntVector e(42, 68);
+    EnhancedIntVector f;
     e.push_back(35);
     e.push_back(1);
     e.push_back(70);
@@ -77,20 +78,27 @@ int main() {
     cout << "Here are the results of calling all the methods: " << endl;
     cout << "Highest value: " << e.getHighest() << endl;
     cout << "Lowest value: " << e.getLowest() << endl;
-    cout << "Average value: " << setprecision(2) << fixed << e.getAverage() << endl;
+    cout << "Average value: " << e.getAverage() << endl;
     cout << "First value: " << e.first() << endl;
     cout << "Last value: " << e.last() << endl;
     cout << "Enter a value to search for: ";
     cin >> searchParam;
     if (e.find(searchParam)) { cout << "Found it!\n"; } else { cout << searchParam << " is not in this object.\n"; }
-    
-
-    return 0;
+    /* 
+    cout << "Test no arr return value: \n" << f.getAverage() << endl;
+    cout << f.getHighest() << endl;
+    cout << f.getLowest() << endl;
+    cout << f.first() << endl;
+    cout << f.last() << endl;
+    cout << f.find(1) << endl;
+    */
 }
 
 // EnhancedIntVector methods
 
 double EnhancedIntVector::getAverage() const {
+
+    if (length == 0) return -1;
 
     double sum = 0;
 
@@ -105,6 +113,8 @@ double EnhancedIntVector::getAverage() const {
 
 int EnhancedIntVector::getHighest() const {
 
+    if (length == 0) return -1;
+
     int highest = numbers[0];
 
     for(int i = 0; i < length; ++i) {
@@ -117,6 +127,8 @@ int EnhancedIntVector::getHighest() const {
 }
 
 int EnhancedIntVector::getLowest() const {
+
+    if (length == 0) return -1;
 
     int lowest = numbers[0];
 
@@ -131,6 +143,8 @@ int EnhancedIntVector::getLowest() const {
 
 bool EnhancedIntVector::find(int search) const { 
 
+    if (length == 0) return false;
+    
     for(int i = 0; i < length; ++i) {
 
         if(numbers[i] == search) { return true; }
@@ -139,6 +153,7 @@ bool EnhancedIntVector::find(int search) const {
 
     return false;
 }
+
 
 // everything below this line was copied from improvedIntVector.cpp from canvas
 
