@@ -81,14 +81,19 @@ void MyDeque::remove(int v) {
 
 }
 
-void MyDeque::clear() {
+void MyDeque::clear() { 
+
+    Node* search;
+    while(head != nullptr) {
+        search = head;
+        head = head->next;
+        delete search;
+    }
 
 }
 
 ostream& operator<<(ostream& o, const MyDeque& m) {
     
-    if (m.head == nullptr) { o << "Deque is empty\n"; }
-
     MyDeque::Node* search = m.head;
     o << "[ ";
     
@@ -114,6 +119,8 @@ int main() {
     cout << "Back: " << dq.back() << endl;
     cout << "ostream operator : " << dq << endl;
     cout << "Size: " << dq.size() << endl;
+    dq.clear();
+    cout << "Clear test : " << dq << endl;
 
     return 0;
 }
