@@ -61,6 +61,11 @@ void MyDeque::push_back(int v) {
 
 void MyDeque::push_front(int v) {
 
+    Node* newPtr;
+    newPtr = new Node;
+    newPtr->x = v;
+    newPtr->next = head;
+    head = newPtr;
 }
 
 int MyDeque::size() const {
@@ -114,6 +119,8 @@ int main() {
     dq.push_back(1);
     dq.push_back(2);
     dq.push_back(3);
+    dq.push_front(0);
+    dq.push_front(-1);
 
     cout << "Front: " << dq.front() << endl;
     cout << "Back: " << dq.back() << endl;
