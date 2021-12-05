@@ -84,6 +84,12 @@ int MyDeque::size() const {
 
 void MyDeque::remove(int v) {
 
+    Node* trailing, *leading = head;
+    while (leading != nullptr) {
+        if (head->x == v) { trailing = head; head = head->next; delete trailing; break; }  
+        else if (leading->x == v) { trailing->next = leading->next; delete leading; break; }
+        else { trailing = leading; leading = leading->next; }
+    }
 }
 
 void MyDeque::clear() { 
@@ -116,18 +122,25 @@ ostream& operator<<(ostream& o, const MyDeque& m) {
 int main() {
 
     MyDeque dq;
-    dq.push_back(1);
-    dq.push_back(2);
-    dq.push_back(3);
-    dq.push_front(0);
-    dq.push_front(-1);
+    int toRemove;
 
-    cout << "Front: " << dq.front() << endl;
-    cout << "Back: " << dq.back() << endl;
-    cout << "ostream operator : " << dq << endl;
-    cout << "Size: " << dq.size() << endl;
-    dq.clear();
-    cout << "Clear test : " << dq << endl;
+    dq.push_back(70);
+    dq.push_back(1);
+    dq.push_back(35);
+    dq.push_back(68);
+    dq.push_back(42);
+
+    cout << "MyDeque contents: " << dq << endl;
+    cout << "The front of MyDeque: " << dq.front() << endl;
+    cout << "The back of MyDeque: " << dq.back() << endl;
+    cout << "Lets add 88 to the end using push_back() " << endl;
+    dq.push_back(88);
+    cout << "The updated list: " << dq << endl;
+    cout << "MyDeque size: " << dq.size() << endl;
+    cout << "Enter a value to remove from MyDeque: ";
+    cin >> toRemove;
+    dq.remove(toRemove);
+    cout << "The updated list: " << dq << endl;
 
     return 0;
 }
