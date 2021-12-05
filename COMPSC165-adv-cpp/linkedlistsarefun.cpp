@@ -64,7 +64,17 @@ void MyDeque::push_front(int v) {
 }
 
 int MyDeque::size() const {
-    return 0;
+    
+    Node* search = head;
+    int size = 0;
+    if (head == nullptr) { return size; }
+    else {
+        while (search != nullptr) { 
+            search = search->next;
+            size++;
+        }
+        return size;
+    }
 }
 
 void MyDeque::remove(int v) {
@@ -81,11 +91,13 @@ ostream& operator<<(ostream& o, const MyDeque& m) {
 
     MyDeque::Node* search = m.head;
     o << "[ ";
+    
     while (search != nullptr) { 
         if (search->next == nullptr) { o << search->x << " "; }
         else { o << search->x << ", "; }
         search = search->next;
     }
+    
     o << ']';
 
     return o;
@@ -101,6 +113,7 @@ int main() {
     cout << "Front: " << dq.front() << endl;
     cout << "Back: " << dq.back() << endl;
     cout << "ostream operator : " << dq << endl;
+    cout << "Size: " << dq.size() << endl;
 
     return 0;
 }
