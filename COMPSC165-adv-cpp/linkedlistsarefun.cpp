@@ -76,6 +76,18 @@ void MyDeque::clear() {
 }
 
 ostream& operator<<(ostream& o, const MyDeque& m) {
+    
+    if (m.head == nullptr) { o << "Deque is empty\n"; }
+
+    MyDeque::Node* search = m.head;
+    o << "[ ";
+    while (search != nullptr) { 
+        if (search->next == nullptr) { o << search->x << " "; }
+        else { o << search->x << ", "; }
+        search = search->next;
+    }
+    o << ']';
+
     return o;
 }
 
@@ -88,6 +100,7 @@ int main() {
 
     cout << "Front: " << dq.front() << endl;
     cout << "Back: " << dq.back() << endl;
+    cout << "ostream operator : " << dq << endl;
 
     return 0;
 }
