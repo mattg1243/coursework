@@ -84,17 +84,21 @@ int MyDeque::size() const {
 
 void MyDeque::remove(int v) {
 
-    Node* trailing, *leading = head;
-    while (leading != nullptr) {
-        if (head->x == v) { trailing = head; head = head->next; delete trailing; break; }  
-        else if (leading->x == v) { trailing->next = leading->next; delete leading; break; }
+    Node* trailing = nullptr, *leading = head;
+    // if the list is empty, do nothing
+    if (head == nullptr) { return; }
+    // if the first node is the one we want to remove, do this
+    else if (head->x == v) { trailing = head; head = head->next; delete trailing; return; }
+    // if we have to find the node elsewhere, do this
+    while (leading != nullptr) {  
+        if (leading->x == v) { trailing->next = leading->next; delete leading; break; }
         else { trailing = leading; leading = leading->next; }
     }
 }
 
 void MyDeque::clear() { 
 
-    Node* search;
+    Node* search = nullptr;
     while(head != nullptr) {
         search = head;
         head = head->next;
@@ -136,6 +140,9 @@ int main() {
     cout << "Lets add 88 to the end using push_back() " << endl;
     dq.push_back(88);
     cout << "The updated list: " << dq << endl;
+    cout << "Now let's add 32 to the front using push_front() " << endl;
+    dq.push_front(32);
+    cout << "The list again: " << dq << endl;
     cout << "MyDeque size: " << dq.size() << endl;
     cout << "Enter a value to remove from MyDeque: ";
     cin >> toRemove;
